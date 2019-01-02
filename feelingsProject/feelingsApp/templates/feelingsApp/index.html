@@ -1,0 +1,30 @@
+{% extends 'feelingsApp/base.html' %}
+
+{% block 'body' %}
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            {{question}}
+        </h1>
+        <p class="subtitle">
+            You have 3 choices.
+        </p>
+        {% for choice in choices %}
+        <div class="tile is-vertical is-8">
+            <div class="tile">
+                <div class="tile is-parent is-vertical">
+                    <article class="tile is-child notification is-primary">
+                        <button class="button is-primary choice"> {{choice}} </button>
+                        <p class="subtitle"> {{choice.votes}}</p>
+                    </article>
+                </div>
+
+            </div>
+        </div>
+        <div class="tile">
+            <!-- The magical tile element! -->
+
+        </div> {% endfor %}
+    </div>
+
+</section> {% endblock %}
