@@ -5,49 +5,21 @@
     <div class="container">
         <form method="POST">
             {% csrf_token %}
-            <div class="field">
-                <label class="label">Name</label>
-                <div class="control">
-                    <input class="input" type="text" placeholder="Text input">
-                </div>
-            </div>
-
-
 
             <div class="field">
                 <label class="label">Message</label>
                 <div class="control">
-                    <textarea class="textarea" placeholder="Textarea"></textarea>
+                    <textarea class="textarea" name="text" placeholder="Textarea"></textarea>
                 </div>
             </div>
-
-            <div class="control">
-                {% for choice in choices %}
-                <label class="radio">
-                    <input type="radio" name="{{choice}}" class="choices">
-                    {{choice}}
-                </label>
-                {% endfor %}
-
-            </div>
-
-            <div class="control has-icons-left">
-                <div class="select is-large">
-                    <select>
-                        <option selected>Country</option>
-                    </select>
-                </div>
-                <span class="icon is-large is-left">
-                    <i class="fas fa-globe"></i>
-                </span>
-            </div>
-
 
             <div class="field is-grouped">
                 <div class="control">
                     <button class="button is-link">Submit</button>
                 </div>
             </div>
+
+            <p>{{nlp}}</p>
         </form>
 
     </div>
