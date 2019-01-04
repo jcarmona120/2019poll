@@ -3,6 +3,9 @@ from .models import Question, Choice
 # from django.template import loader
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.http import JsonResponse
+import json
+from textblob import TextBlob
 
 # Create your views here.
 
@@ -45,8 +48,33 @@ def vote(request):
         res = conn.getresponse()
         data = res.read()
 
-        print(data.decode("utf-8"))
-        context = {"nlp": data.decode("utf-8")}
+        feelings = data.decode("utf-8")
+        sentimentObj = json.loads(feelings)
+        neg = sentimentObj['probability']['neg']
+        pos = sentimentObj['probability']['pos']
+        neutral = sentimentObj['probability']['neutral']
+
+        sentiment = 'neutral'
+
+        b = TextBlob(text)
+        print(b.sentiment)
+        print(b.noun_phrases)
+
+        if neutral > (pos and neg):
+            print('neutral')
+            sentiment = 'neutral'
+        elif pos > (neg and neutral):
+            print('pos')
+            sentiment = 'positive'
+        else:
+            print('neg')
+            sentiment = 'negative'
+
+        context = {
+            "probability": sentimentObj['probability'],
+            "label": sentimentObj['label'],
+            "sentiment": sentiment
+        }
 
         return render(request, 'feelingsApp/detail.html', context)
 
